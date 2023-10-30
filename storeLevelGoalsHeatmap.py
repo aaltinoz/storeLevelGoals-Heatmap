@@ -2,17 +2,19 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
-"""
-USER SHOULD INPUT CONVERSION AND TRAFFIC CSV BEFORE RUNNING PROGRAM
-"""
+conversion = pd.read_csv('Jayefo_conversion.csv',sep=',')
+traffic = pd.read_csv('Jayefo_traffic.csv', sep=',')
 
+# Get 
+csv_path = "/home/liamaltinoz/Documents/Projects/Pyton/Trafic&Conversion/Jayefo_traffic.csv"
 
-# input conversion.csv
-# conversion = pd.read_csv(sep=',')
-#input traffic.csv
-# traffic = pd.read_csv(sep=',')
+# Extract the base name of the file
+base_name = os.path.basename(csv_path)
 
+# Remove the .csv extension
+STORE_NAME = os.path.splitext(base_name)[0].split(sep='_')[0]
 
 # Get Min&Max Dates for conversion csv
 CONV_START_DATE = pd.to_datetime(conversion['publish_time']).dt.normalize().min().date().strftime('%m-%d-%y')
@@ -224,7 +226,7 @@ def get_storeGoal_heatmaps():
     fig, axes = plt.subplots(1, 2, figsize=(20, 15))
 
     # First heatmap
-    sns.heatmap(plot_data, annot=True, fmt=".2f", cmap='Greens', cbar=True, ax=axes[0]).set(title=f'{plot_title} Heatmap for Store Goal: {storeGoal} {START_DATE} // {END_DATE}')
+    sns.heatmap(plot_data, annot=True, fmt=".2f", cmap='Greens', cbar=True, ax=axes[0]).set(title=f'{plot_title} Heatmap for Store Goal: {storeGoal} {START_DATE} // {END_DATE} for {STORE_NAME3}')
 
     # Annotations for the first heatmap
     for i in range( plot_data.shape[0]):
